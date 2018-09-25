@@ -29,6 +29,3 @@ class TestModifyRequests(BaseTest):
 			reply = json.loads(response.data.decode())
 			self.assertEquals(reply['success'],False)
 			self.assertEquals(reply['message'],'All fields required.')
-
-
-

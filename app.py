@@ -1,9 +1,10 @@
-from flask import Flask, jsonify, request
-from api.model.Responses import registration_successful, \
-    login_fail, request_fail, create_request_successful, create_request_fail
+from flask import Flask, jsonify,request
+from api.model.Responses import * 
 from api.model.User import User
+from api.model.UserRequest import UserRequest
 from api.model.orderRequest import OrderRequest
-from api.model.data import DataStore
+from api.model.data import *
+import jwt
 
 
 app = Flask(__name__)
@@ -114,6 +115,30 @@ def api_gejt_sepecific_order(current_user, orderId):
         return jsonify(create_request_successful)
     else:
         return jsonify(request_fail)
+
+#Update the status of an order
+@app.route('/api/v1/orders/<requestId>', methods=['PUT'])
+@data_store.token_required
+def api_modifys_request(current_user,requestId):
+   
+    data = request.get_json(force=True)
+
+    foodorder = data.get('food order', None)
+    description = data.get('description', None)
+    quantity = data.get('quantity', None)
+    print(foodorder)
+#check all fields are filled
+    if foodorder is not None and description  is not None and quantity  is not None:
+        req = OrderRequest(foodorder,description,quantity,current_user.getUserName()) 
+        mod_req=data_store.updateOrder(req)
+        if mod_req is not None:
+            create_request_successful['data'] = mod_req
+            return jsonify(create_request_successful)
+        else:
+            return jsonify(request_fail)
+    else:
+        return jsonify(create_request_fail)
+
 
 
 
