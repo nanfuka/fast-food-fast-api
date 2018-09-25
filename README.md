@@ -1,5 +1,8 @@
 # fast-food-fast-api
 [![Build Status](https://www.travis-ci.com/nanfuka/fast-food-fast-api.svg?branch=feature)](https://www.travis-ci.com/nanfuka/fast-food-fast-api)
+
+[![Coverage Status](https://coveralls.io/repos/github/nanfuka/fast-food-fast-api/badge.svg?branch=master)](https://coveralls.io/github/nanfuka/fast-food-fast-api?branch=master)
+
 Fast-food-fast is a food delivery service app for a restaurant that facilitates  interaction between the restaurant users and administrator. The users should be able to  to reach out to the restaurant and make their food orders. they should also should be able to see a history of ordered foods.    The admin should be able to add, edit or delete the fast-food and  view the list of fast-food items. The administrator should also be able to view a list of orders, accept, decline orders or Mark orders as complete
 
 
