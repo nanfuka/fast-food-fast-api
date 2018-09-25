@@ -99,6 +99,23 @@ def api_create_orders(current_user):
 def place_new_order(current_user):
     return jsonify(data_store.getAllOrdersForUser(current_user.getUserName()))
 
+# get specific order
+
+
+@app.route('/api/v1/orders/<orderId>', methods=['GET'])
+# get authorisation
+@data_store.token_required
+def api_gejt_sepecific_order(current_user, orderId):
+    # fetch function from data.py Data class which return a particular order
+    req = data_store.getASpecificRequestsForUser(orderId)
+    # response if request is found
+    if req is not None:
+        create_request_successful['data'] = req
+        return jsonify(create_request_successful)
+    else:
+        return jsonify(request_fail)
+
+
 
 
 
