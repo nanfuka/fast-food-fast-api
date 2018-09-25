@@ -1,0 +1,5 @@
+#Python Cache Files
+*.pyc
+*__pycache__/*
+
+venv
