@@ -72,6 +72,26 @@ def register_user():
     else:
         return jsonify(create_request_fail)
 
+@app.route('/api/v1/orders', methods=['POST'])
+@data_store.token_required
+def api_create_orders(current_user):
+    data = request.get_json(force=True)
+
+    foodorder = data.get('foodorder', None)
+    description = data.get('description', None)
+    quantity = data.get('quantity', None)
+
+    if foodorder is not None and description \
+            is not None and quantity is not None:
+        req = OrderRequest(foodorder, description, quantity,
+                           current_user.getUserName())
+        create_request_successful['data'] = data_store.addOrders(
+            req).getDictionary()
+        return jsonify(create_request_successful)
+    else:
+        return jsonify(create_request_fail)
+
+
 
 
 
