@@ -1,0 +1,20 @@
+{
+  "test_TestCreateRequest.py::BaseTest": true,
+  "test_TestCreateRequest.py::TestCase": true,
+  "test_TestCreateRequest.py::TestCreateRequests": true,
+  "test_TestModifyRequests.py::TestModifyRequests::test_api_when_parameters_have_been_passed": true,
+  "test_TestOrders.py::TestUserRequests::test_api_check_requests": true,
+  "test_Test_request.py": true,
+  "test_Test_request.py::BaseTest": true,
+  "test_Test_request.py::TestCase": true,
+  "test_Test_request.py::TestCreateRequests": true,
+  "test_Test_request.py::TestCreateRequests::test_api_when_no_parameters_have_been_passed": true,
+  "test_Test_request.py::TestCreateRequests::test_api_when_parameters_have_been_passed": true,
+  "test_modify_requests.py::TestModifyRequests::test_api_when_no_parameters_have_been_passed": true,
+  "test_modify_requests.py::TestModifyRequests::test_api_when_parameters_have_been_passed": true,
+  "test_requests.py::TestUserRequests::test_api_check_requests": true,
+  "test_single_request.py": true,
+  "test_single_request.py::TestSingleRequests::test_api_check_non_authorised_user": true,
+  "test_single_request.py::TestSingleRequests::test_api_check_request": true,
+  "test_single_request.py::TestSingleRequests::test_if_URL_exists": true
+}
