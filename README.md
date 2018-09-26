@@ -39,15 +39,15 @@ Go to [Debbie's fastfoodfast](https://debbiefastfood.herokuapp.com/)
 
 Clone the GitHub repo:
  
-`$ git clone https://github.com/nanfuka/fast-food-fast-api.git`
+` git clone https://github.com/nanfuka/fast-food-fast-api.git`
 
 cd into the folder and install a Virtual Environment
 
-`$ virtualenv --python=python3 mtracker`
+` virtualenv venv`
 
 Activate the virtual environment
 
-`$ mtracker/bin/activate`
+`venv\scripts\activate`
 
 Install all application requirements from the requirements file found in the root folder
 
