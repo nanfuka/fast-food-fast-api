@@ -41,6 +41,55 @@ def login():
     else:
         return jsonify(login_fail), 200
 
+@app.route('/api/v1/register', methods=['POST'])
+def register_user():
+    """signup a new user"""
+    data = request.args
+    first_name = data.get("first_name")
+    last_name = data.get("last_name")
+    email = data.get("email")
+    username = data.get("username")
+    password = data.get("password")
+    if first_name is not None and last_name is not None and \
+            email is not None and username is not None and \
+            password is not None:
+        user = data_store.search_list(username)
+        if user is None:
+            response = data_store.create_user(
+                User(
+                    first_name, last_name, email, username, password)).\
+                get_dictionary()
+            response["token"] = data_store.generate_auth_token(response)
+            registration_successful["user"] = response
+            return jsonify(registration_successful)
+
+        else:
+            return jsonify(login_fail), 401
+    else:
+        return jsonify(create_request_fail)
+
+
+@app.route('/api/v1/orders', methods=['POST'])
+@data_store.token_required
+def api_create_orders(current_user):
+    """api end point for placing a new order"""
+    data = request.get_json(force=True)
+
+    food_order = data.get('food_order', None)
+    description = data.get('description', None)
+    quantity = data.get('quantity', None)
+
+    if food_order is not None and description \
+            is not None and quantity is not None:
+        req = OrderRequest(food_order, description, quantity,
+                           current_user.get_username())
+        create_request_successful['data'] = data_store.add_orders(
+            req).get_dictionary()
+        return jsonify(create_request_successful)
+    else:
+        return jsonify(create_request_fail)
+
+
 
 
 
