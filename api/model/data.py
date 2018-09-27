@@ -2,7 +2,7 @@ from werkzeug.security import safe_str_cmp
 import jwt
 import datetime
 from flask import jsonify
-from api.model.Responses import * 
+from api.model.Responses import *
 from functools import wraps
 from flask import request
 
@@ -16,14 +16,15 @@ class DataStore:
         self.orders = orders
         self.key = "my Jesus I love thee"
 
-    def createUser(self, user):
+    def create_user(self, user):
         """
-        function to create a new user and append new user to the list of users
+        function to create a new user and append
+        new user to the list of users
         """
         self.users.append(user)
         return user
 
-    def addOrders(self, req):
+    def add_orders(self, req):
         """
         function for placing a new order.
         this appends the newly placed order to the list of orders
@@ -31,63 +32,53 @@ class DataStore:
         self.orders.append(req)
         return req
 
-    def getAllOrders(self):
-        """
-        function to return all orders
-        """
+    def get_all_orders(self):
+        """function to return all orders"""
         return self.orders
 
-    def getAllOrdersForUser(self, order):
-        """
-        function to return all orders for a specific user
-        """
+    def get_all_orders_for_user(self, order):
+        """function to return all orders for a specific user"""
         response = []
         for req in self.orders:
-            if req.getOwner() == order:
-                response.append(req.getDictionary())
+            if req.get_owner() == order:
+                response.append(req.get_dictionary())
         return response
 
-    def getASpecificRequestsForUser(self, requestId):
+    def get_a_specific_requests_for_user(self, request_Id):
         """
         function to get a specific order for a specific user
         """
         for req in self.orders:
-            if req.getOrderId() == requestId:
-                return req.getDictionary()
+            if req.get_order_Id() == request_Id:
+                return req.get_dictionary()
         return None
 
-    def getASpecificOrderForUser(self, requestId):
+    def get_a_specific_order_for_user(self, request_Id):
         for req in self.orders:
-            if req.getOrderId() == requestId:
-                return req.getDictionary()
+            if req.get_order_Id() == request_Id:
+                return req.get_dictionary()
         return None
 
-    def updateOrder(self, order):
-        """
-        function to update an order
-        """
+    def update_order(self, order):
+        """function to update an order"""
         i = 0
         for req in self.orders:
-            if req.getOrderId() == order.getOrderId():
+            if req.get_order_Id() == order.get_order_Id():
                 self.orders[i] = order
-                return order.getDictionary()
+                return order.get_dictionary()
             i = i+1
         return None
 
-    def searchList(self, username):
-        """
-        function to search a list of users for a specific username
-        """
+    def search_list(self, username):
+        """function to search a list of users for a specific username"""
         for item in self.users:
-            if item.getUserName() == username:
+            if item.get_username() == username:
                 return item
             else:
                 return None
 
     def generate_auth_token(self, user):
-        """
-        function to generate an auth-token
-        """
+        """function to generate an auth-token"""
         try:
             payload = {
                 'exp': datetime.datetime.utcnow(
@@ -115,7 +106,7 @@ class DataStore:
                 return jsonify(auth_fail), 401
             try:
                 data = jwt.decode(token, self.key)
-                current_user = self.searchList(data['user']['username'])
+                current_user = self.search_list(data['user']['username'])
             except:
                 return jsonify(auth_fail), 401
             return func(current_user, *args, **kwargs)
