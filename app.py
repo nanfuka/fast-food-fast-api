@@ -89,6 +89,15 @@ def api_create_orders(current_user):
     else:
         return jsonify(create_request_fail)
 
+@app.route('/api/v1/orders', methods=['GET'])
+@data_store.token_required
+def get_all_orders(current_user):
+    """function to retrieve all food orders"""
+
+    return jsonify(data_store.get_all_orders_for_user(
+        current_user.get_username()))
+
+
 
 
 
