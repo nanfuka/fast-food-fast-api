@@ -1,0 +1,14 @@
+[
+  "test_TestCreateRequest.py::TestCreateRequests::test_api_check_non_authorised_user",
+  "test_TestCreateRequest.py::TestCreateRequests::test_api_when_no_parameters_have_been_passed",
+  "test_TestCreateRequest.py::TestCreateRequests::test_api_when_parameters_have_been_passed",
+  "test_TestCreateRequest.py::TestCreateRequests::test_if_URL_exists",
+  "test_TestModifyRequests.py::TestModifyRequests::test_api_check_non_authorised_user",
+  "test_TestModifyRequests.py::TestModifyRequests::test_api_when_no_parameters_have_been_passed",
+  "test_TestModifyRequests.py::TestModifyRequests::test_if_URL_exists",
+  "test_TestOrders.py::TestUserRequests::test_api_check_non_authorised_user",
+  "test_TestOrders.py::TestUserRequests::test_if_URL_exists",
+  "test_TestSingle_request.py::TestSingleRequests::test_api_check_non_authorised_user",
+  "test_TestSingle_request.py::TestSingleRequests::test_api_check_request",
+  "test_TestSingle_request.py::TestSingleRequests::test_if_URL_exists"
+]
