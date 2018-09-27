@@ -97,6 +97,19 @@ def get_all_orders(current_user):
     return jsonify(data_store.get_all_orders_for_user(
         current_user.get_username()))
 
+@app.route('/api/v1/orders/<order_Id>', methods=['GET'])
+@data_store.token_required
+def api_get_sepecific_order(current_user, order_Id):
+    """this function fetches details
+     about a specific order from the datastore"""
+    req = data_store.get_a_specific_requests_for_user(order_Id)
+    if req is not None:
+        create_request_successful['data'] = req
+        return jsonify(create_request_successful)
+    else:
+        return jsonify(request_fail)
+
+
 
 
 
