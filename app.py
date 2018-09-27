@@ -109,6 +109,30 @@ def api_get_sepecific_order(current_user, order_Id):
     else:
         return jsonify(request_fail)
 
+@app.route('/api/v1/orders/<requestId>', methods=['PUT'])
+@data_store.token_required
+def api_modifys_request(current_user, requestId):
+    """function to modify a specific order"""
+
+    data = request.get_json(force=True)
+
+    food_order = data.get('food_order', None)
+    description = data.get('description', None)
+    quantity = data.get('quantity', None)
+    print(food_order)
+    if food_order is not None and description \
+            is not None and quantity is not None:
+        req = OrderRequest(food_order, description, quantity,
+                           current_user.get_username())
+        mod_req = data_store.update_order(req)
+        if mod_req is not None:
+            create_request_successful['data'] = mod_req
+            return jsonify(create_request_successful)
+        else:
+            return jsonify(request_fail)
+    else:
+        return jsonify(create_request_fail)
+
 
 
 
