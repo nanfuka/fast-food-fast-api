@@ -41,6 +41,7 @@ def login():
     else:
         return jsonify(login_fail), 200
 
+
 @app.route('/api/v1/register', methods=['POST'])
 def register_user():
     """signup a new user"""
@@ -89,6 +90,7 @@ def api_create_orders(current_user):
     else:
         return jsonify(create_request_fail)
 
+
 @app.route('/api/v1/orders', methods=['GET'])
 @data_store.token_required
 def get_all_orders(current_user):
@@ -96,6 +98,7 @@ def get_all_orders(current_user):
 
     return jsonify(data_store.get_all_orders_for_user(
         current_user.get_username()))
+
 
 @app.route('/api/v1/orders/<order_Id>', methods=['GET'])
 @data_store.token_required
@@ -108,6 +111,7 @@ def api_get_sepecific_order(current_user, order_Id):
         return jsonify(create_request_successful)
     else:
         return jsonify(request_fail)
+
 
 @app.route('/api/v1/orders/<requestId>', methods=['PUT'])
 @data_store.token_required
@@ -132,13 +136,6 @@ def api_modifys_request(current_user, requestId):
             return jsonify(request_fail)
     else:
         return jsonify(create_request_fail)
-
-
-
-
-
-
-
 
 if __name__ == '__main__':
     app.run()
