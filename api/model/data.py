@@ -2,7 +2,7 @@ from werkzeug.security import safe_str_cmp
 import jwt
 import datetime
 from flask import jsonify
-from api.model.Responses import *
+from api.model.responses import *
 from functools import wraps
 from flask import request
 
