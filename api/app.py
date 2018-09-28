@@ -1,8 +1,8 @@
 from flask import Flask, jsonify, request
-from api.model.responses import *
-from api.model.user import User
-from api.model.order_request import OrderRequest
-from api.model.data import *
+from .model.responses import *
+from .model.user import User
+from .model.order_request import OrderRequest
+from .model.data import *
 import jwt
 
 

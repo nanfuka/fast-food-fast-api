@@ -1,6 +1,6 @@
 from unittest import TestCase
 from flask import json
-from app import app
+from api.app import app
 from api.model.user import User
 import unittest
 

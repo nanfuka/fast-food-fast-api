@@ -1,14 +1,14 @@
 [
-  "api/tests/test_create_request.py::TestCreateRequests::test_api_check_non_authorised_user",
-  "api/tests/test_create_request.py::TestCreateRequests::test_api_when_no_parameters_have_been_passed",
-  "api/tests/test_create_request.py::TestCreateRequests::test_api_when_parameters_have_been_passed",
-  "api/tests/test_create_request.py::TestCreateRequests::test_if_URL_exists",
-  "api/tests/test_modify_requests.py::TestModifyRequests::test_api_check_non_authorised_user",
-  "api/tests/test_modify_requests.py::TestModifyRequests::test_api_when_no_parameters_have_been_passed",
-  "api/tests/test_modify_requests.py::TestModifyRequests::test_if_URL_exists",
-  "api/tests/test_orders.py::TestUserRequests::test_api_check_non_authorised_user",
-  "api/tests/test_orders.py::TestUserRequests::test_if_URL_exists",
-  "api/tests/test_single_request.py::TestSingleRequests::test_api_check_non_authorised_user",
-  "api/tests/test_single_request.py::TestSingleRequests::test_api_check_request",
-  "api/tests/test_single_request.py::TestSingleRequests::test_if_URL_exists"
+  "tests/test_create_request.py::TestCreateRequests::test_api_check_non_authorised_user",
+  "tests/test_create_request.py::TestCreateRequests::test_api_when_no_parameters_have_been_passed",
+  "tests/test_create_request.py::TestCreateRequests::test_api_when_parameters_have_been_passed",
+  "tests/test_create_request.py::TestCreateRequests::test_if_URL_exists",
+  "tests/test_modify_requests.py::TestModifyRequests::test_api_check_non_authorised_user",
+  "tests/test_modify_requests.py::TestModifyRequests::test_api_when_no_parameters_have_been_passed",
+  "tests/test_modify_requests.py::TestModifyRequests::test_if_URL_exists",
+  "tests/test_orders.py::TestUserRequests::test_api_check_non_authorised_user",
+  "tests/test_orders.py::TestUserRequests::test_if_URL_exists",
+  "tests/test_single_request.py::TestSingleRequests::test_api_check_non_authorised_user",
+  "tests/test_single_request.py::TestSingleRequests::test_api_check_request",
+  "tests/test_single_request.py::TestSingleRequests::test_if_URL_exists"
 ]

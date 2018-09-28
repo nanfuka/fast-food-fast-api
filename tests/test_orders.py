@@ -1,8 +1,8 @@
 from flask_testing import TestCase
-from app import app
+from api.app import app
 import unittest
 import json
-from api.tests.base_test import BaseTest
+from .base_test import BaseTest
 
 
 class TestUserRequests(BaseTest):

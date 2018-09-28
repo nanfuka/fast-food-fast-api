@@ -1,1 +1,14 @@
-{}
+{
+  "tests/test_create_request.py::BaseTest": true,
+  "tests/test_create_request.py::TestCase": true,
+  "tests/test_create_request.py::TestCreateRequests": true,
+  "tests/test_modify_requests.py::BaseTest": true,
+  "tests/test_modify_requests.py::TestCase": true,
+  "tests/test_modify_requests.py::TestModifyRequests": true,
+  "tests/test_orders.py::BaseTest": true,
+  "tests/test_orders.py::TestCase": true,
+  "tests/test_orders.py::TestUserRequests": true,
+  "tests/test_single_request.py::BaseTest": true,
+  "tests/test_single_request.py::TestCase": true,
+  "tests/test_single_request.py::TestSingleRequests": true
+}
