@@ -3,3 +3,7 @@
 *__pycache__/*
 
 venv/
+keep.py
+tests/
+.pytest_cache/v/cache
+.vscode
