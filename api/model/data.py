@@ -5,6 +5,7 @@ from flask import jsonify
 from api.model.responses import *
 from functools import wraps
 from flask import request
+from methods import User
 
 
 class DataStore:
@@ -21,6 +22,8 @@ class DataStore:
         function to create a new user and append
         new user to the list of users
         """
+        new_user = User(first_name, last_name, email, username, password)
+        new_user.add_user()
         self.users.append(user)
         return user
 
