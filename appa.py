@@ -11,6 +11,21 @@ from api.model.methods import *
 
 app = Flask(__name__)
 
+def protected(f):
+    @wraps(f)
+    def decorated(*args, **kwargs):
+        auth = request.authorization
+        if not auth:
+            return jsonify({'message': 'Provide token'})
+        else:
+            try:
+                jwt.decode(auth, 'secret', algorithms=['HS256'])
+            except Exception as e:
+                print(e)
+                return jsonify({'message': 'Invalid token'})
+        return f(*args, **kwargs)
+    return decorated
+
 @app.route('/', methods=['GET'])
 def welcome():
     return 'WELCOME TO FAST FOOD CHALLENGE 3'
@@ -47,7 +62,34 @@ def register_user():
     user.add_user()
 
     return jsonify({"message": f"User {name} successfully created an account"}), 201
-    
+
+@app.route('/api/v2/auth/login', methods=['POST'])
+def login():
+    connect = DatabaseConnection()
+    cursor = connect.cursor
+    login_data = request.get_json()
+    username = login_data['username']
+    password = generate_password_hash(login_data['password'])
+  
+    cursor.execute(
+        "SELECT * FROM users WHERE username = '{}'".format(login_data['username']))
+    user = cursor.fetchone()
+
+    if user:
+
+        user_object = User(user[1], user[2], user[3], user[4])
+
+        user_token = user_object.get_token()
+        return jsonify({
+            'status': 'OK',
+            'message': f'Welcome {username} You are logged in',
+            'access_token': user_token.decode('utf8')
+            }), 200
+    else:
+        return jsonify({
+            'message': f'user {username} not found'
+        }), 404
+
 
 if __name__ == '__main__':
     app.run()
