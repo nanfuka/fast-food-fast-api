@@ -12,6 +12,7 @@ from api.model.methods import *
 app = Flask(__name__)
 
 def protected(f):
+    """function for creating a decorator for the protected routes"""
     @wraps(f)
     def decorated():
         auth = request.authorization
@@ -20,8 +21,7 @@ def protected(f):
         else:
             try:
                 jwt.decode(auth, 'secret', algorithms=['HS256'])
-            except Exception as e:
-                print(e)
+            except:              
                 return jsonify({'message': 'Invalid token'})
         
     return decorated
@@ -29,8 +29,10 @@ def protected(f):
 @app.route('/', methods=['GET'])
 def welcome():
     return 'WELCOME TO FAST FOOD CHALLENGE 3'
+
 @app.route('/api/v1/signup', methods=['POST'])
 def register_user():
+    """function to register a new user with the food fast app. The user is required to enter their details as stupulated below"""
 
     user_data = request.get_json()
     name = user_data.get('name')
