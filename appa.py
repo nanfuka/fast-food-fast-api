@@ -92,6 +92,30 @@ def login():
             'message': f'user {username} not found'
         }), 404
 
+@app.route('/api/v1/menu', methods=['POST'])
+def create_menu():
+    """api end point for creating menu"""
+    order_data = request.get_json(force=True)
+
+    menu_name = order_data.get('menu_name', None)
+    price = order_data.get('price', None)
+
+    if order_data:
+        print(order_data)
+    if not order_data:
+        return jsonify({'message': 'All fields are required'}), 400
+
+    if not menu_name or menu_name == " ":
+        return jsonify({'message': 'Invalid menu'}), 400
+
+    if not price:
+        return jsonify({'message': 'Invalid menu, please add price'}), 400
+    menu = Menu(menu_id, menu_name, price)
+    menu.create_menu()
+    return jsonify({"message": f"User {menu_name} has successfully been added"}), 201
+
+
+
 
 if __name__ == '__main__':
     app.run()
