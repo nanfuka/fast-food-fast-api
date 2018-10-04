@@ -23,7 +23,7 @@ def protected(f):
             except Exception as e:
                 print(e)
                 return jsonify({'message': 'Invalid token'})
-        return f(*args, **kwargs)
+        
     return decorated
 
 @app.route('/', methods=['GET'])
