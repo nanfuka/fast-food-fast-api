@@ -1,7 +1,7 @@
 #Python Cache Files
 *.pyc
 *__pycache__/*
-
+kip/
 venv/
 keep.py
 tests/

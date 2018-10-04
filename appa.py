@@ -1,6 +1,6 @@
 from flask import Flask, request, jsonify, make_response
-import re
 import uuid
+import re
 from werkzeug.security import generate_password_hash, check_password_hash
 import jwt
 import datetime
@@ -13,7 +13,7 @@ app = Flask(__name__)
 
 def protected(f):
     @wraps(f)
-    def decorated(*args, **kwargs):
+    def decorated():
         auth = request.authorization
         if not auth:
             return jsonify({'message': 'Provide token'})

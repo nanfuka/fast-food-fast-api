@@ -76,7 +76,7 @@ def signin_user():
         
 @app.route('/api/v1/orders', methods=['POST'])
 def api_create_orders():
-    """api end point for placing a new order"""
+    """api end point for placing a new order and saving it to the database"""
     data = request.get_json(force=True)
 
     menu_id = data.get('menu_id', None)
@@ -89,25 +89,51 @@ def api_create_orders():
     cursor.execute("INSERT INTO orders(menu_id, user_id, quantity)VALUES('{}','{}','{}')".format(
         menu_id, user_id, quantity))
     connection.commit()
+    
     # cursor.execute("INSERT INTO orders(menu_id, user_id, quantity) VALUES('{}', '{}','{}')".format(
     #     menu_id, user_id, quantity))
     return 'order placed'
 
 @app.route('/api/v1/orders', methods=['GET'])
 def get_all_orders():
+    """function to return all the orders placed"""
     connection = psycopg2.connect(host='localhost', user='postgres', password= 'test', database= 'fastfood')
     cursor = connection.cursor()
     cursor.execute("SELECT * FROM orders")
-    users = cursor.fetchall()
-    print (users)
-    allusers =[]
-    for row in users:
-        user = {"order_id": row[0], "menu_id":row[1], "user_id":row[2], "quantity":row[3]}
-        print(user)
-        fine = allusers.append(user)
-        print (fine)
-        return jsonify(user)
+    orders = cursor.fetchall()
+    all_orders = []
+    for row in orders:
+        all_orders.append({'order_id' : row[0], 'menu_id' :row[1], 'user_id' : row[2], 'quantity' : row[3]})
+    return jsonify({"all_orders": all_orders}), 201
 
+@app.route('/api/v1/orders/<int:order_id>', methods=['GET'])
+def return_one_order(order_id):
+    """function to fetch a specific order. The admin only inputs the order Id and all teh details are displayed"""
+    connection = psycopg2.connect(host='localhost', user='postgres', password= 'test', database= 'fastfood')
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM orders WHERE order_id = %s", [order_id])
+   
+
+    orders = cursor.fetchall()
+    print (orders)   
+    all_orders = []
+    for row in orders:
+        all_orders.append({'order_id' : row[0], 'menu_id' :row[1], 'user_id' : row[2], 'quantity' : row[3]})
+    return jsonify({"all_orders": all_orders}), 201
+
+@app.route('/api/v1/orders/<int:user_id>', methods=['GET'])
+def return_order_history_of_user(user_id):
+    """function to return order history of a particular user"""
+    connection = psycopg2.connect(host='localhost', user='postgres', password= 'test', database= 'fastfood')
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM orders WHERE user_id = %s", [user_id])
+    orders = cursor.fetchall()
+    print (orders)   
+    all_orders = []
+    for row in orders:
+        all_orders.append({'order_id' : row[0], 'menu_id' :row[1], 'user_id' : row[2], 'quantity' : row[3]})
+    return jsonify({"user{}": all_orders}), 201
+    
 @app.route('/api/v1/menu', methods=['POST'])
 def create_menu():
     """api end point for creating menu"""
@@ -121,6 +147,17 @@ def create_menu():
     cursor.execute("INSERT INTO menu(menu_name, price) VALUES('{}', '{}')".format(menu_name, price))
     connection.commit()
     return 'menu placed'
+@app.route('/api/v1/menu', methods=['GET'])
+def get_menu():
+    """function to return all the orders placed"""
+    connection = psycopg2.connect(host='localhost', user='postgres', password= 'test', database= 'fastfood')
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM menu")
+    men = cursor.fetchall()
+    menu = []
+    for row in men:
+        menu.append({'menu_id' : row[0], 'menu_name' : row[1], 'price' :row[2]})
+    return jsonify({"menu": menu}), 201
 
 
     
