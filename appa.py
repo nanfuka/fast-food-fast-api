@@ -91,31 +91,93 @@ def login():
         return jsonify({
             'message': f'user {username} not found'
         }), 404
-
 @app.route('/api/v1/menu', methods=['POST'])
 def create_menu():
     """api end point for creating menu"""
-    order_data = request.get_json(force=True)
+    data = request.get_json(force=True)
 
-    menu_name = order_data.get('menu_name', None)
-    price = order_data.get('price', None)
-
-    if order_data:
-        print(order_data)
-    if not order_data:
+    menu_name = data.get('menu_name', None)
+    price = data.get('price', None)
+    if data:
+        print(data)
+    if not data:
         return jsonify({'message': 'All fields are required'}), 400
 
-    if not menu_name or menu_name == " ":
-        return jsonify({'message': 'Invalid menu'}), 400
+    if not menu_name:
+        return jsonify({'message': 'All fields are required'}), 400
 
     if not price:
-        return jsonify({'message': 'Invalid menu, please add price'}), 400
-    menu = Menu(menu_id, menu_name, price)
-    menu.create_menu()
-    return jsonify({"message": f"User {menu_name} has successfully been added"}), 201
+        return jsonify({'message': 'All fields are required'}), 400
 
+    if isinstance(price, str):
+        return jsonify({'message': 'Invalid menu'}), 400
 
+@app.route('/api/v1/menu', methods=['GET'])
+def get_menu():
+    """function to return all the orders placed"""
+    cursor.execute("SELECT * FROM menu")
+    men = cursor.fetchall()
+    menu = []
+    for row in men:
+        menu.append({'menu_id' : row[0], 'menu_name' : row[1], 'price' :row[2]})
+    return jsonify({"menu": menu}), 201
+@app.route('/api/v1/orders', methods=['POST'])
+def api_create_orders():
+    """api end point for placing a new order and saving it to the database"""
+    data = request.get_json(force=True)
 
+    menu_id = data.get('menu_id', None)
+    id = data.get('id', None)
+    quantity = data.get('quantity', None)
+
+    if data:
+        print(data)
+    if not data:
+        return jsonify({'message': 'All fields are required'}), 400
+
+    if isinstance(id, str):
+        return jsonify({'message': 'Invalid id'}), 400
+
+    if isinstance(menu_id, str):
+        return jsonify({'message': 'Invalid menu_id'}), 400
+    
+    if isinstance(quantity, str):
+        return jsonify({'message': 'Invalid quantity'}), 400
+    order = Order(menu_id, id, quantity)
+    order.create_order()
+    return jsonify({"message": f"order has been placed successfully"}), 201
+
+@app.route('/api/v1/orders/<int:user_id>', methods=['GET'])
+def return_order_history_of_user(user_id):
+    """function to return order history of a particular user"""
+    order = Order(menu_id, id, quantity) 
+    orders= order.create_order()   
+    all_orders = []
+    for row in orders:
+        all_orders.append({'order_id' : row[0], 'menu_id' :row[1], 'user_id' : row[2], 'quantity' : row[3]})
+    return jsonify({"user{}": all_orders}), 201
+
+@app.route('/api/v1/orders/<int:order_id>', methods=['GET'])
+def return_one_order(order_id):
+    """function to fetch a specific order. The admin only inputs the order Id and all teh details are displayed"""
+    connection = psycopg2.connect(host='localhost', user='postgres', password= 'test', database= 'fastfood')
+    cursor = connection.cursor()
+    cursor.execute("SELECT * FROM orders WHERE order_id = %s", [order_id])
+   
+    orders = cursor.fetchall()
+    print (orders)   
+    all_orders = []
+    for row in orders:
+        all_orders.append({'order_id' : row[0], 'menu_id' :row[1], 'user_id' : row[2], 'quantity' : row[3]})
+    return jsonify({"all_orders": all_orders}), 201
+
+@app.route('/api/v1/menu', methods=['PUT'])
+def Update_order_status():
+    """api end point for creating menu"""
+    command = "UPDATE orders SET order_status=%s WHERE order_id=%s"
+    comman(self.order_status,self.order_id))
+    cursor.execute(command, comman)
+    return jsonify({"{order_id}": has been mosified}), 201
 
 if __name__ == '__main__':
     app.run()
