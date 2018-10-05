@@ -44,7 +44,7 @@ class Menu(DatabaseConnection):
     def create_menu(self):
         cursor.execute("INSERT INTO menu(menu_name, price) VALUES('{}', '{}')".format(
         self.menu_name, self.price))
-        cursor.close()
+        
 
     def get_menu(self):
         cursor.execute("SELECT * FROM menu")
