@@ -7,3 +7,11 @@ keep.py
 tests/
 .pytest_cache/v/cache
 .vscode
+.pytest_cache/
+.pytest_cache/
+OneNote Table Of Contents.onetoc2
+__init__.py
+api/OneNote Table Of Contents.onetoc2
+api/__pycache__/
+api/model/OneNote Table Of Contents.onetoc2
+api/model/__pycache__/

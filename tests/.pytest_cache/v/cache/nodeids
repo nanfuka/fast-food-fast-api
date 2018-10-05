@@ -1,1 +1,7 @@
-[]
+[
+  "test_users.py::UserTestCase::test_login_without_password",
+  "test_users.py::UserTestCase::test_login_without_username",
+  "test_users.py::UserTestCase::test_register_user_fail",
+  "test_users.py::UserTestCase::test_signup_user",
+  "test_users.py::UserTestCase::test_user_login"
+]

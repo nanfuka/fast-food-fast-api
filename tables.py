@@ -3,7 +3,8 @@ class DatabaseConnection:
     def __init__(self):
         try:
             self.connection = psycopg2.connect(
-                database='d31g1i61q5vmq1', user='jadudvzdelgbad', password='18f22c2487a6c72e57257302dcf9ecab2b61f9d339bd4523cdcfb8878a2ffb6d', host='ec2-54-225-68-133.compute-1.amazonaws.com', port='5432')
+                database = 'foodlove', user = 'postgres', password = 'test')
+                # database='d31g1i61q5vmq1', user='jadudvzdelgbad', password='18f22c2487a6c72e57257302dcf9ecab2b61f9d339bd4523cdcfb8878a2ffb6d', host='ec2-54-225-68-133.compute-1.amazonaws.com', port='5432')
             self.connection.autocommit = True
             self.cursor = self.connection.cursor()
 
@@ -19,12 +20,8 @@ class DatabaseConnection:
         self.cursor.execute(create_database_table)
 
     def create_table_orders(self):
-        create_database_table = " CREATE TABLE IF NOT EXISTS orders(order_id SERIAL PRIMARY KEY, menu_id int NOT NULL, id int NOT NULL, quantity int NOT NULL, FOREIGN KEY (menu_id) REFERENCES menu(menu_id), FOREIGN KEY (id) REFERENCES users(id))"
+        create_database_table = " CREATE TABLE IF NOT EXISTS orders(order_id SERIAL PRIMARY KEY, menu_id int NOT NULL, id int NOT NULL, quantity int NOT NULL, Order_status  VARCHAR(255), FOREIGN KEY (menu_id) REFERENCES menu(menu_id), FOREIGN KEY (id) REFERENCES users(id))"
         self.cursor.execute(create_database_table)
-
-    def delete_table(self):
-        delete = "DROP TABLE users"
-        self.cursor.execute(delete)
 
     def close(self):
         self.cursor.close()
